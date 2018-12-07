@@ -22,12 +22,12 @@ hidden <- c(1:40)
 iter   <- c(1:10)
 trave  <- rep(0,length(hidden))
 tr     <- matrix(0,length(iter),length(hidden))
-weights <- rep(list(c()), length(hidden))
+models <- rep(list(list()), length(hidden))
 for(i in 1:length(hidden)){
 	for(j in 1:length(iter)){
 		print(paste(as.character(i), as.character(j)))
 		model <- nnet(classes~., data=xor, size=hidden[i], rang=0.1)
-		weights[[i]] <- append(weights[[i]], model$wts)
+		models[[i]][[j]] <- model
 		out <- predict(model, xor, type="class")
 		tr[j,i] <- mean(out != xor$classes)
 	}
@@ -46,8 +46,8 @@ main <- function(){
 	##	 , lty=1, lwd=2)
 	#
 	#3. 隠れ素子が 1 個の場合に得られた学習結果について、結合係数の大きさの分布を示しなさい。
-	#hist(weights[[1]], breaks=seq(-100, 100,5), freq=TRUE)
+	hist(models[[1]][[1]]$wts, breaks=seq(-100, 100,5), freq=TRUE)
 	
 	#4. 10 回とも正しく識別できた場合の学習結果について、結合係数の大きさの分布を示し、隠れ素子が１個の場合と 比較検討しなさい。
-	hist(weights[[first_match]], freq=TRUE)
+	#hist(models[[first_match]][[1]]$wts, breaks=seq(-100, 100,5), freq=TRUE)
 }
