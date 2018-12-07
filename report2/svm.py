@@ -48,21 +48,18 @@ def KKT(t, x):
     b = 2* -1.5
     return t*(w.transpose() @ x + b)
 
-def q4():
+def q5():
     print(KKT(t_B, x_B)>=1)
     print(KKT(t_C, x_C)>=1)
     print(KKT(t_D, x_D)>=1)
 
-def q5():
+def q6():
     x = [x_B, x_C, x_D]
     t = [t_B, t_C, t_D]
     H = [[t[i]*t[j]*x[i].transpose()@x[j] for j in range(3)]for i in range(3)]
     print(str(H).replace('[','{').replace(']','}'))
     print(t)
 #    a =  sympy.var("a")
-
-def q6():
-    print("マセマティカでやった")
 
 def q7():
     print("マセマティカでやった")
